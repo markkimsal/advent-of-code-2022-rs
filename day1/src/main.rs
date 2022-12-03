@@ -23,13 +23,24 @@ impl std::fmt::Display for Elf {
 }
 
 fn main() {
-    let list_of_elves = parse_list(INPUT_SAMPLE);
-    for elf in list_of_elves {
+    let input_part_1 = fs::read_to_string("./fixtures/input_part_1.txt")
+        .expect("could not parse input_part_1.txt from fixtures/ dir.");
+    let mut list_of_elves = parse_list(&input_part_1);
+    for elf in &list_of_elves {
         print!("{}", elf);
     }
     println!("");
 
     find_highest_calorie_elf(INPUT_SAMPLE);
+
+    // part 2
+    sort_elves_by_calories(&mut list_of_elves);
+    let elf_slice = &list_of_elves[0..3];
+    for e in elf_slice {
+        println!("{}", e.totalCalories());
+    }
+    let slice_calories = elf_slice.iter().map(|item| item.totalCalories());
+    println!("total for top 3 elves: {}", slice_calories.sum::<u32>());
 }
 fn parse_list(input: &str) -> Vec<Elf> {
     let mut list_of_elves: Vec<Elf> = Vec::new();
@@ -77,6 +88,11 @@ fn find_highest_calorie_elf(input: &str) {
         }
     }
     println!("elf #{} has {} calories", highest_index+1, highest_calorie);
+}
+
+fn sort_elves_by_calories(list: &mut Vec<Elf>)
+{
+    list.sort_by(|item_a, item_b| item_b.totalCalories().cmp(&item_a.totalCalories()));
 }
 
 #[cfg(test)]
