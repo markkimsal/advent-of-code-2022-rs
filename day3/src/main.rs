@@ -1,11 +1,21 @@
 use std::{fs, cmp::Ordering};
 
+#[derive(Clone)]
 struct Rucksack {
     compartment_a: String,
     compartment_b: String,
 }
+mod part2;
 
 fn main() {
+    if false {
+        part_one();
+    } else {
+        part2::part_two();
+    }
+}
+
+fn part_one() {
     // let _input_sample = fs::read_to_string("./fixtures/sample.txt")
     //    .expect("could not parse sample.txt from fixtures/ dir.");
 
