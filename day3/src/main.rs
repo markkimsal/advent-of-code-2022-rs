@@ -5,6 +5,13 @@ struct Rucksack {
     compartment_a: String,
     compartment_b: String,
 }
+impl std::fmt::Display for Rucksack {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "({}, {})", self.compartment_a, self.compartment_b)
+    }
+}
+
+
 mod part2;
 
 fn main() {
